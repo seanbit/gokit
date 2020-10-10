@@ -1,4 +1,4 @@
-module github.com/sean-tech/gokit
+module github.com/seanbit/gokit
 
 go 1.13
 
