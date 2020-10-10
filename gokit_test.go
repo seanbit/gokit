@@ -2,6 +2,7 @@ package gokit
 
 import (
 	"fmt"
+	"github.com/seanbit/gokit/foundation"
 	"sync"
 	"testing"
 )
@@ -51,6 +52,8 @@ func print()  {
 
 func TestRequestion(t *testing.T) {
 	fmt.Println("success")
+	e := foundation.NewError(nil, 1021, "asdjad")
+	fmt.Println(e.Error())
 	//ctx := requisition.NewRequestionContext(context.Background())
 	//requisition.GetRequisition(ctx).RequestId = 123456
 	//fmt.Print(requisition.GetRequisition(ctx))
