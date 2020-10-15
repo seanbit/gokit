@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
-	"testing"
 )
 
 type Error interface {
@@ -43,12 +42,12 @@ func ParseError(err error) (Error, bool) {
 	if err == nil {
 		return nil, false
 	}
-	errRg := regexp.MustCompile(`^code:(\d+), msg:([\s\S]+), err:([\s\S]+)`)
+	errRg := regexp.MustCompile(`^code:(\d+), msg:([\s\S]*), err:([\s\S]*)`)
 	params := errRg.FindStringSubmatch(err.Error())
-	if params[0] != err.Error() {
+	if len(params) != 4 {
 		return nil, false
 	}
-	if len(params) != 4 {
+	if params[0] != err.Error() {
 		return nil, false
 	}
 	code, err := strconv.Atoi(params[1])
@@ -62,12 +61,4 @@ func ParseError(err error) (Error, bool) {
 	}, true
 }
 
-func TestParseError(t *testing.T) {
-	err := NewError(errors.New("haha-a, asd@!()uw-  wow! 这是汉语哎，還有繁體字呢。 hey834w"), 101, "some wrong")
-	e, ok := ParseError(err)
-	if ok {
-		fmt.Printf("code:%d, msg:%s, err:%s", e.Code(), e.Msg(), e.Error())
-	} else {
-		fmt.Println("not Error")
-	}
-}
+
