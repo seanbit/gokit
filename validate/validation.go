@@ -3,7 +3,7 @@ package validate
 import (
 	"errors"
 	"fmt"
-	"github.com/sean-tech/gokit/foundation"
+	"github.com/seanbit/gokit/foundation"
 	"gopkg.in/go-playground/validator.v9"
 	"log"
 	"reflect"

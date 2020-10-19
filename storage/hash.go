@@ -2,7 +2,7 @@ package storage
 
 import (
 	"errors"
-	"github.com/sean-tech/gokit/foundation"
+	"github.com/seanbit/gokit/foundation"
 	"sync"
 )
 

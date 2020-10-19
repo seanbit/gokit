@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"testing"
-	"github.com/sean-tech/gokit/fileutils"
+	"github.com/seanbit/gokit/fileutils"
 )
 
 func TestMd5EncryptImpl_EncryptWithTimestamp(t *testing.T) {
