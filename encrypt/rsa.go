@@ -93,7 +93,7 @@ func (this *rsaImpl) Sign(privateKey string, data []byte) ([]byte, error) {
 	}
 	priKey := prkI.(*rsa.PrivateKey)
 
-	//hashedStr := GetMd5().Encode(data)
+	//hashedStr := Md5().Encode(data)
 	//hashed,_ := hex.DecodeString(hashedStr)
 	h := sha1.New()
 	h.Write(data)
@@ -123,7 +123,7 @@ func (this *rsaImpl) Verify(publicKey string, data []byte, signedData []byte) er
 	h.Write(data)
 	hashed := h.Sum(nil)
 
-	//hashedStr := GetMd5().Encode(data)
+	//hashedStr := Md5().Encode(data)
 	//hashed,_ := hex.DecodeString(hashedStr)
 
 	return rsa.VerifyPKCS1v15(pubKey, crypto.SHA1, hashed, signedData)

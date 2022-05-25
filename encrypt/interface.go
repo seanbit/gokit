@@ -32,21 +32,21 @@ var (
 	_aesInstance IAes
 )
 
-func GetMd5() IMd5 {
+func Md5() IMd5 {
 	_md5Once.Do(func() {
 		_md5Instance = new(md5Impl)
 	})
 	return _md5Instance
 }
 
-func GetRsa() IRsa {
+func Rsa() IRsa {
 	_rsaOnce.Do(func() {
 		_rsaInstance = new(rsaImpl)
 	})
 	return _rsaInstance
 }
 
-func GetAes() IAes {
+func Aes() IAes {
 	_aesOnce.Do(func() {
 		_aesInstance = new(aesImpl)
 	})

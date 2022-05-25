@@ -2,21 +2,11 @@ package encrypt
 
 import (
 	"encoding/base64"
-	"encoding/hex"
 	"fmt"
+	"github.com/seanbit/gokit/fileutils"
 	"log"
 	"testing"
-	"github.com/seanbit/gokit/fileutils"
 )
-
-func TestMd5EncryptImpl_EncryptWithTimestamp(t *testing.T) {
-	key := "ajsdhjbzjxcbzhcb"
-	value := "this is test value"
-	enc := GetMd5().Encode([]byte(value))
-	fmt.Println(enc)
-	enc = GetMd5().HmacEncode([]byte(key), []byte(value))
-	fmt.Println(enc)
-}
 
 func TestRsaEncryptImpl_Encrypt(t *testing.T) {
 	fileutils.CheckExist("")
@@ -27,7 +17,7 @@ func TestRsaEncryptImpl_Encrypt(t *testing.T) {
 	fmt.Println(string(buf))
 
 	src := "this is a test word for rsa encrypt"
-	encryptData, err := GetRsa().Encrypt(string(buf), []byte(src))
+	encryptData, err := Rsa().Encrypt(string(buf), []byte(src))
 	if err != nil {
 		t.Error(err)
 	}
@@ -47,7 +37,7 @@ func TestRsaEncryptImpl_Decrypt(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	decryptData, err := GetRsa().Decrypt(string(buf), data)
+	decryptData, err := Rsa().Decrypt(string(buf), data)
 	if err != nil {
 		t.Error(err)
 	}
@@ -63,7 +53,7 @@ func TestRsaEncryptImpl_Sign(t *testing.T) {
 	fmt.Println(string(buf))
 
 	src := "this is a test word for rsa sign"
-	signData, err := GetRsa().Sign(string(buf), []byte(src))
+	signData, err := Rsa().Sign(string(buf), []byte(src))
 	if err != nil {
 		t.Error(err)
 	}
@@ -84,51 +74,12 @@ func TestRsaEncryptImpl_Verify(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	err = GetRsa().Verify(string(buf), []byte(src), signData)
+	err = Rsa().Verify(string(buf), []byte(src), signData)
 	if err != nil {
 		t.Error(err)
 	} else {
 		log.Println("verify success")
 	}
-}
-
-func TestAesEncryptImpl_EncryptCBC(t *testing.T) {
-
-	key := GetAes().GenerateKey()
-	fmt.Println(key)
-	fmt.Println(hex.EncodeToString(key))
-	fmt.Println(base64.StdEncoding.EncodeToString(key))
-
-	origData := []byte("Hello World") // 待加密的数据
-
-	log.Println("------------------ CBC模式 --------------------")
-	encrypted, err := GetAes().EncryptCBC(origData, key)
-	if err != nil {
-		t.Error(err)
-	}
-	log.Println("密文(hex)：", hex.EncodeToString(encrypted))
-	log.Println("密文(base64)：", base64.StdEncoding.EncodeToString(encrypted))
-
-	decrypted, err := GetAes().DecryptCBC(encrypted, key)
-	if err != nil {
-		t.Error(err)
-	}
-	log.Println("解密结果：", string(decrypted))
-
-	//log.Println("------------------ ECB模式 --------------------")
-	//encrypted = AesEncryptECB(origData, key)
-	//log.Println("密文(hex)：", hex.EncodeToString(encrypted))
-	//log.Println("密文(base64)：", base64.StdEncoding.EncodeToString(encrypted))
-	//decrypted = AesDecryptECB(encrypted, key)
-	//log.Println("解密结果：", string(decrypted))
-	//
-	//log.Println("------------------ CFB模式 --------------------")
-	//encrypted = AesEncryptCFB(origData, key)
-	//log.Println("密文(hex)：", hex.EncodeToString(encrypted))
-	//log.Println("密文(base64)：", base64.StdEncoding.EncodeToString(encrypted))
-	//decrypted = AesDecryptCFB(encrypted, key)
-	//log.Println("解密结果：", string(decrypted))
-
 }
 
 func TestRsaEncryptImpl_Verify2(t *testing.T) {
@@ -146,7 +97,7 @@ func TestRsaEncryptImpl_Verify2(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	err = GetRsa().Verify(string(buf), src, signData)
+	err = Rsa().Verify(string(buf), src, signData)
 	if err != nil {
 		t.Error(err)
 	} else {
